@@ -2,9 +2,9 @@
 
 Solução java simples para geração de jogos da Lotofácil utilizando a técnica de espelhagem.
 
-O jogo original (primeiro a ser gerado, considera também as seguintes estatísticas conforme abaixo.
+**Passo 1- O jogo original (primeiro a ser gerado) considera também as seguintes estatísticas conforme abaixo.**
 
-Estatísticas (24/06/2019):
+*Estatísticas (24/06/2019):*
 
 Linhas com mais dezenas sorteadas: 
 
@@ -75,3 +75,36 @@ Total de dezenas: 15
 Parâmetros: 
 Qtd total de dezenas:	x
 % Mínimo de Impares:    y%
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+**Passo 2 - Técnica de espelhagem:**
+
+*DESCRIÇÃO DO MÉTODO*
+
+Este método é aplicável, neste momento, somente para jogos de 15 dezenas. Sempre iremos partir de um primeiro jogo de 15 números, gerado aleatoriamente. Vamos definir como o jogo ORIGINAL.				
+No geral, o jogo ORIGINAL é dividido em 3 partes iguais - com 5 dezenas cada. O método consiste em gerar NOVOS jogos a partir do jogo ORIGINAL, modificando as dezenas de acordo com um ou mais BLOCOS definidos para cada tipo de jogo.				
+Desta forma, dependendo do tipo de jogo, algumas dezenas são consideradas FIXAS e outras VOLÁTEIS. As dezenas voláteis são modificadas para a próxima dezena MAIOR ou MENOR.	
+
+1- Serão gerados 4 novos jogos, utilizando o método de ESPELHO, derivados do jogo original:
+
+1.1- No JOGO 1, iremos modificar apenas o BLOCO 1
+
+1.2- No JOGO 2, modificamos apenas o BLOCO 2
+
+1.3- No JOGO 3, modificamos apenas o BLOCO 3
+
+1.4- No JOGO 4, modificamos os BLOCOS 2 e 3	
+
+				
+*REGRAS DE MOVIMENTO DE DEZENAS*
+
+Quanto ao sentido: aleatório - para PRÓXIMA dezena ou ANTERIOR.
+
+1- O ponteiro irá se mover para o respectivo sentido, até encontrar uma dezena QUE NÃO TENHA OCORRIDO NO JOGO ORIGINAL, E QUE AINDA NÃO TENHA SIDO ESCOLHIDA ENTRE AS NOVAS DEZENAS.
+
+1.1- O ponteiro irá se mover até a dezena limite (25 - no caso do fluxo crescente; ou 01 no fluxo decrescente): Caso não encontre, irá tentar o fluxo OPOSTO.
+
+1.1.1- Caso o ponteiro não encontre uma nova dezena, a mesma será REPETIDA (ou seja, será utilizada a mesma dezena usada no jogo original).				
+
