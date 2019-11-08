@@ -127,7 +127,7 @@ public class Main {
 		game3Numbers.addAll(sortedNumbersBlock3);
 		game3Numbers.sort(Comparator.naturalOrder());
 		printNumbers(game3Numbers);
-		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game3Numbers));
+		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game3Numbers));	
 
 		System.out.println("\nJogo #4 (Movendo Bloco 3): ");
 		List<Integer> game4Numbers = new ArrayList<>();
@@ -148,6 +148,17 @@ public class Main {
 		game5Numbers.sort(Comparator.naturalOrder());
 		printNumbers(game5Numbers);
 		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game5Numbers));
+		
+		System.out.println("\nJogo #6 (Movendo Blocos 1 e 2): ");
+		List<Integer> game6Numbers = new ArrayList<>();
+		List<Integer> game6SortedNumbersBlock1PlusBlock2 = new ArrayList<>();
+		game6SortedNumbersBlock1PlusBlock2.addAll(sortedNumbersBlock1);
+		game6SortedNumbersBlock1PlusBlock2.addAll(sortedNumbersBlock2);
+		game6Numbers.addAll(moveNumbersTo(game6SortedNumbersBlock1PlusBlock2));
+		game6Numbers.addAll(sortedNumbersBlock3);
+		game6Numbers.sort(Comparator.naturalOrder());
+		printNumbers(game6Numbers);
+		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game6Numbers));
 
 	}
 
