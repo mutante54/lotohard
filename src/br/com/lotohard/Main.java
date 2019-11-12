@@ -34,9 +34,9 @@ public class Main {
 		List<Line> lines = new ArrayList<>();
 		lines.add(new Line(1, 0, 3, 4, Arrays.asList(1, 2, 3, 4, 5)));
 		lines.add(new Line(2, 1, 1, 2, Arrays.asList(6, 7, 8, 9, 10)));
-		lines.add(new Line(3, 0, 3, 4, Arrays.asList(11, 12, 13, 14, 15)));
-		lines.add(new Line(4, 1, 2, 2, Arrays.asList(16, 17, 18, 19, 20)));
-		lines.add(new Line(5, 0, 2, 3, Arrays.asList(21, 22, 23, 24, 25)));
+		lines.add(new Line(3, 0, 3, 3, Arrays.asList(11, 12, 13, 14, 15)));
+		lines.add(new Line(4, 1, 2, 3, Arrays.asList(16, 17, 18, 19, 20)));
+		lines.add(new Line(5, 0, 3, 3, Arrays.asList(21, 22, 23, 24, 25)));
 
 		/*
 		 * Parte 1 - Preenchendo o minimo de dezenas por linha
