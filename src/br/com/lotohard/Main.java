@@ -13,15 +13,20 @@ public class Main {
 	private static int qtdSortedNumbers = 15;
 
 	// percentual minimo de números impares a serem sorteados
-	private static int minPercOddSortedNumbers = 60;
+	private static int minPercOddSortedNumbers = 55;
 
 	// numeros sorteados (jogo original)
 	private static List<Integer> sortedNumbers = new ArrayList<>();
 
 	// Bloco 1
 	private static List<Integer> sortedNumbersBlock1 = new ArrayList<>();
+	// Bloco 2
 	private static List<Integer> sortedNumbersBlock2 = new ArrayList<>();
+	// Bloco 3
 	private static List<Integer> sortedNumbersBlock3 = new ArrayList<>();
+
+	// Bloco Aleatório (5 dezenas, equivalente à 1/3 das dezenas)
+	private static List<Integer> sortedNumbersBlockRandom = new ArrayList<>();
 
 	private static final int minDez = 1;
 	private static final int maxDez = 25;
@@ -85,7 +90,7 @@ public class Main {
 		});
 
 		sortedNumbers.sort(Comparator.naturalOrder());
-		
+
 		System.out.println("Data de geração: " + new Date().toString());
 
 		/*
@@ -103,6 +108,18 @@ public class Main {
 		sortedNumbersBlock1 = sortedNumbers.subList(0, 5);
 		sortedNumbersBlock2 = sortedNumbers.subList(5, 10);
 		sortedNumbersBlock3 = sortedNumbers.subList(10, sortedNumbers.size());
+
+		Random r = new Random();
+		Integer sortedIndex;
+		Integer sortedNumber;
+		while (sortedNumbersBlockRandom.size() < 5) {
+			sortedIndex = r.nextInt(sortedNumbers.size() - 1);
+			sortedNumber = sortedNumbers.get(sortedIndex);
+
+			if (!sortedNumbersBlockRandom.contains(sortedNumber)) {
+				sortedNumbersBlockRandom.add(sortedNumber);
+			}
+		}
 
 		System.out.println("\nBloco 1: ");
 		printNumbers(sortedNumbersBlock1);
@@ -127,7 +144,7 @@ public class Main {
 		game3Numbers.addAll(sortedNumbersBlock3);
 		game3Numbers.sort(Comparator.naturalOrder());
 		printNumbers(game3Numbers);
-		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game3Numbers));	
+		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game3Numbers));
 
 		System.out.println("\nJogo #4 (Movendo Bloco 3): ");
 		List<Integer> game4Numbers = new ArrayList<>();
@@ -148,7 +165,7 @@ public class Main {
 		game5Numbers.sort(Comparator.naturalOrder());
 		printNumbers(game5Numbers);
 		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game5Numbers));
-		
+
 		System.out.println("\nJogo #6 (Movendo Blocos 1 e 2): ");
 		List<Integer> game6Numbers = new ArrayList<>();
 		List<Integer> game6SortedNumbersBlock1PlusBlock2 = new ArrayList<>();
@@ -159,6 +176,14 @@ public class Main {
 		game6Numbers.sort(Comparator.naturalOrder());
 		printNumbers(game6Numbers);
 		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game6Numbers));
+
+		System.out.println("\nJogo #7 (Movendo 5 dezenas aleatórias): ");
+		List<Integer> game7Numbers = new ArrayList<>();
+		game7Numbers.addAll(moveNumbersTo(sortedNumbersBlockRandom));
+		game7Numbers.addAll(getExceptionNumbersFromOriginalGame(sortedNumbersBlockRandom));
+		game7Numbers.sort(Comparator.naturalOrder());
+		printNumbers(game7Numbers);
+		System.out.println("Qtd de dezenas que não constam no jogo #1: " + getQtdNumbersDiffWithOriginalGame(game7Numbers));
 
 	}
 
@@ -263,6 +288,23 @@ public class Main {
 			}
 		}
 		return qtd;
+	}
+
+	/**
+	 * Obtém as dezenas excedentes do jogo original, desconsiderando as dezenas
+	 * informadas no parâmetro
+	 * 
+	 * @param numbers
+	 * @return
+	 */
+	private static List<Integer> getExceptionNumbersFromOriginalGame(List<Integer> numbers) {
+		List<Integer> exceptNumbers = new ArrayList<>();
+		for (Integer integer : sortedNumbers) {
+			if (!numbers.contains(integer)) {
+				exceptNumbers.add(integer);
+			}
+		}
+		return exceptNumbers;
 	}
 
 }

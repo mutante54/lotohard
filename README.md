@@ -96,7 +96,7 @@ Este método é aplicável, neste momento, somente para jogos de 15 dezenas. Sem
 No geral, o jogo ORIGINAL é dividido em 3 partes iguais - com 5 dezenas cada. O método consiste em gerar NOVOS jogos a partir do jogo ORIGINAL, modificando as dezenas de acordo com um ou mais BLOCOS definidos para cada tipo de jogo.				
 Desta forma, dependendo do tipo de jogo, algumas dezenas são consideradas FIXAS e outras VOLÁTEIS. As dezenas voláteis são modificadas para a próxima dezena MAIOR ou MENOR.	
 
-1- Serão gerados 4 novos jogos, utilizando o método de ESPELHO, derivados do jogo original:
+1- Serão gerados 6 novos jogos, utilizando o método de ESPELHO, derivados do jogo original:
 
 1.1- No JOGO 1, iremos modificar apenas o BLOCO 1
 
@@ -107,6 +107,8 @@ Desta forma, dependendo do tipo de jogo, algumas dezenas são consideradas FIXAS
 1.4- No JOGO 4, modificamos os BLOCOS 2 e 3	
 
 1.5- No JOGO 5, modificamos os BLOCOS 1 e 2	
+
+1.6- No JOGO 6, modificamos 5 dezenas aleatórias
 
 				
 *REGRAS DE MOVIMENTO DE DEZENAS*
