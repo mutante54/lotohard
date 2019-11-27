@@ -13,7 +13,10 @@ public class Main {
 	private static int qtdSortedNumbers = 15;
 
 	// percentual minimo de números impares a serem sorteados
-	private static int minPercOddSortedNumbers = 55;
+	private static int minPercOddSortedNumbers = 53;
+
+	// percentual minimo de números pares a serem sorteados
+	private static int minPercEvenSortedNumbers = 40;
 
 	// numeros sorteados (jogo original)
 	private static List<Integer> sortedNumbers = new ArrayList<>();
@@ -32,7 +35,10 @@ public class Main {
 	private static final int maxDez = 25;
 
 	// quantidade de numeros impares ja sorteados
-	private static int countSortedOddNumbers = 0;
+	private static double countSortedOddNumbers = 0;
+
+	// quantidade de numeros pares ja sorteados
+	private static double countSortedEvenNumbers = 0;
 
 	public static void main(String[] args) {
 
@@ -54,6 +60,8 @@ public class Main {
 					sortedNumbers.add(sortedNumber);
 					if (sortedNumber % 2 != 0) {
 						countSortedOddNumbers++;
+					} else {
+						countSortedEvenNumbers++;
 					}
 				}
 			}
@@ -64,27 +72,55 @@ public class Main {
 		 */
 
 		lines.sort(Comparator.comparing(Line::getPriority));
+
 		lines.forEach(line -> {
-			while (line.getCountSortedNumbers() < line.getMaxSortedNumbers()) {
+			int maxAttempts = 50;
+			int countAttempts = 0;
+			// temos a necessidade de preencher a linha em no máximo "x" tentativas..
+			// pode ocorrer de não ser possível preencher a linha porque não existem mais
+			// dezenas disponíveis para atender à regra de pares/ ímpares
+			while (line.getCountSortedNumbers() < line.getMaxSortedNumbers() && countAttempts < maxAttempts) {
+
+				// sorteando próxima dezena
 				int sortedNumber = line.getNumbers().get(new Random().nextInt(line.getNumbers().size()));
+
 				boolean isOddNumber = false;
+
 				if (sortedNumber % 2 != 0) {
 					isOddNumber = true;
 				}
-				int percOddNumbers = countSortedOddNumbers / qtdSortedNumbers;
 
-				// validacao quanto a quantidade minima de numeros impares
-				if (isOddNumber == false && percOddNumbers < minPercOddSortedNumbers) {
+				// percentual de dezenas ímpares
+				double percOddNumbers = Double.valueOf(countSortedOddNumbers / qtdSortedNumbers) * 100;
+
+				// percentual de dezenas pares
+				double percEvenNumbers = Double.valueOf(countSortedEvenNumbers / qtdSortedNumbers) * 100;
+
+				// validacao quanto a quantidade minima de numeros pares/ impares
+				if (isOddNumber == true && (percOddNumbers >= minPercOddSortedNumbers && percEvenNumbers < minPercEvenSortedNumbers)) {
+					// dezena é ÍMPAR e o percentual de ímpares já foi satisfeito (e o percentual de
+					// pares não foi satisfeito)
 					continue;
-				} else {
-					if (isOddNumber) {
-						countSortedOddNumbers++;
-					}
+				} else if (isOddNumber == false && (percEvenNumbers >= minPercEvenSortedNumbers || percOddNumbers < minPercOddSortedNumbers)) {
+					// dezena é PAR e o percentual de pares já foi satisfeito (e o percentual de
+					// ímpares não foi satisfeito)
+					continue;
 				}
 
+				// validando se a dezena já não foi sorteada
 				if (!sortedNumbers.contains(sortedNumber)) {
+
+					if (isOddNumber) {
+						countSortedOddNumbers++;
+					} else {
+						countSortedEvenNumbers++;
+					}
+
 					line.setCountSortedNumbers(line.getCountSortedNumbers() + 1);
 					sortedNumbers.add(sortedNumber);
+				} else {
+					// mais uma tentativa de preencher essa linha..
+					countAttempts++;
 				}
 			}
 		});
@@ -127,6 +163,9 @@ public class Main {
 		printNumbers(sortedNumbersBlock2);
 		System.out.println("Bloco 3: ");
 		printNumbers(sortedNumbersBlock3);
+
+		System.out.println("\nQtd Pares: " + (int) countSortedEvenNumbers);
+		System.out.println("\nQtd Ímpares: " + (int) countSortedOddNumbers);
 
 		System.out.println("\nJogo #2 (Movendo Bloco 1): ");
 		List<Integer> game2Numbers = new ArrayList<>();
